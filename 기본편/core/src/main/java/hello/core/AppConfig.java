@@ -17,23 +17,30 @@ public class AppConfig {
 
     @Bean           // 각 메서드에 Bean 어노테이션을 추가하면 스프링 컨테이너에 추가됨.
     public MemberService memberService() {
-        return new MemberServiceImpl(getMemberRepository());
-    }
-
-    @Bean
-    public MemberRepository getMemberRepository() {
-        return new MemoryMemberRepository();
+        //1번
+        System.out.println("call AppConfig.memberService");
+        return new MemberServiceImpl(memberRepository());
     }
 
     @Bean
     public OrderService orderService() {
+        //2번
+        System.out.println("call AppConfig.orderService");
+
         return new OrderServiceImpl(
-                getMemberRepository(),
-                getDigcountPolicy());
+                memberRepository(),
+                digcountPolicy());
     }
 
     @Bean
-    public DiscountPolicy getDigcountPolicy() {
+    public MemberRepository memberRepository() {
+        //3번
+        System.out.println("call AppConfig.memberRepository");
+        return new MemoryMemberRepository();
+    }
+
+    @Bean
+    public DiscountPolicy digcountPolicy() {
         //return new FIxDiscountPolicy();
         return new RateDiscountPolicy();
     }
