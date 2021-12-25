@@ -14,7 +14,7 @@ public class AutowiredTest {
     @Test
     void AutowiredOption(){
         ApplicationContext ac = new AnnotationConfigApplicationContext(TestBean.class);
-        
+
     }
 
     // 스프링 빈에 없는 Member 사용
