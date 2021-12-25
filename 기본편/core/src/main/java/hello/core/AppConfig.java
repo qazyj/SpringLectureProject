@@ -29,7 +29,7 @@ public class AppConfig {
 
         return new OrderServiceImpl(
                 memberRepository(),
-                digcountPolicy());
+                discountPolicy());
     }
 
     @Bean
@@ -40,7 +40,7 @@ public class AppConfig {
     }
 
     @Bean
-    public DiscountPolicy digcountPolicy() {
+    public DiscountPolicy discountPolicy() {
         //return new FIxDiscountPolicy();
         return new RateDiscountPolicy();
     }
