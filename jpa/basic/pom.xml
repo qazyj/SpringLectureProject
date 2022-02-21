@@ -10,7 +10,7 @@
         <!-- JPA 하이버네이트 -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
+            <artifactId>hibernate-entitymanager</artifactId>   <!-- hibernate-core, javax.persistence 등을 받아옴 -->
             <version>5.3.10.Final</version>
         </dependency>
         <!-- H2 데이터베이스 -->
