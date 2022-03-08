@@ -12,6 +12,7 @@ public class Order {
     private Long id;
     @Column(name = "MEMBER_ID")
     private Long memberId;
+    private Member member;
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
@@ -19,6 +20,14 @@ public class Order {
 
     public Long getId() {
         return id;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public void setId(Long id) {

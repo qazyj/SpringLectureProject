@@ -14,29 +14,24 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member1 = new Member();
-            member1.setUsername("A");
 
-            Member member2 = new Member();
-            member2.setUsername("B");
+            //팀 저장
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            Member member3 = new Member();
-            member3.setUsername("C");
+            //회원 저장
+            Member member = new Member();
+            member.setName("member1");
+            member.setTeam(team); //단방향 연관관계 설정, 참조 저장
+            em.persist(member);
 
-            System.out.println("===============");
+            //조회
+            Member findMember = em.find(Member.class, member.getId());
+            //참조를 사용해서 연관관계 조회
+            Team findTeam = findMember.getTeam();
 
-            // DB SEQ = 1     |     1
-            // DB SEQ = 51    |     2
-            // DB SEQ = 51    |     3
-
-            em.persist(member1);    // 1, 51
-            em.persist(member2);    // MEM
-            em.persist(member3);    // MEM
-
-            System.out.println("member.id = " + member1.getId());
-            System.out.println("member.id = " + member2.getId());
-            System.out.println("member.id = " + member3.getId());
-            System.out.println("===============");
+            System.out.println(findTeam);
 
             tx.commit();
             } catch(Exception e){
