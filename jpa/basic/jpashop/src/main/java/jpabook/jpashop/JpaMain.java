@@ -1,5 +1,6 @@
 package jpabook.jpashop;
 
+import jpabook.jpashop.domain.Book;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 
@@ -15,16 +16,12 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
+
         try {
-            Order order = em.find(Order.class, 1L);
-
-            // 자료형 Long
-            Long memberId = order.getMemberId();
-            Member member = em.find(Member.class, memberId);
-
-            // 자료형 Member
-            Member findMember = order.getMember();
-
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("김영진");
+            em.persist(book);
             tx.commit();
         } catch(Exception e){
             tx.rollback();
