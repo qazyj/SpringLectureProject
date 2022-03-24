@@ -1,9 +1,7 @@
 package hellojpa;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JpaMain {
@@ -15,38 +13,34 @@ public class JpaMain {
         tx.begin();
 
         try {
-            //팀 저장
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
 
-            //회원 저장
-            Member member = new Member();
-            member.setName("member1");//단방향 연관관계 설정, 참조 저장
-            member.changeTeam(team);
-            em.persist(member);
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-            em.flush();
-            em.clear();
-            /*
-            //조회
-            Team findTeam = em.find(Team.class, team.getId());
-            int memberSize = findTeam.getMembers().size(); //역방향 조회
-            System.out.println(memberSize);*/
-            Team findTeam = em.find(Team.class, team.getId());
-            System.out.println(findTeam.toString());
-            List<Member> members = findTeam.getMembers();
-            for(Member member1 : members){
-                System.out.println("member = "  + member1.getName());
-            }
+
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
 
             tx.commit();
             } catch(Exception e){
                 tx.rollback();
+                e.printStackTrace();
             } finally{
                 em.close();
                 emf.close();
             }
-        }
+    }
+
+    public static void printMember(Member member){
+        String username = member.getName();
+        System.out.println(username);
+
+        Team team = member.getTeam();
+        System.out.println(team.getName());
+    }
+
 
 }

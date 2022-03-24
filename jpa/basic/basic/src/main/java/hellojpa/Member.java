@@ -3,10 +3,12 @@ package hellojpa;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-public class Member {
+public class Member extends BaseEntity{
     @Id @GeneratedValue
     private Long id;
 
@@ -14,11 +16,12 @@ public class Member {
     private String name;
     private int age;
 
-    //@Column(name = "TEAM_ID")
-    //private Long teamId;
+    @ManyToMany
+    @JoinTable(name = "MEMBER_PRODUCT")
+    private List<Product> products = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
+    @ManyToOne(fetch = FetchType.LAZY)  // LAZY는 프록시 객체로 조회
+    @JoinColumn(name = "TEAM_ID")   //insertable = false, updatable = false,
     private Team team;
 
     public Member() {}
@@ -51,18 +54,7 @@ public class Member {
         return team;
     }
 
-    public void changeTeam(Team team) {
+    public void setTeam(Team team) {
         this.team = team;
-        team.getMembers().add(this);
-    }
-
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", team=" + team +
-                '}';
     }
 }
