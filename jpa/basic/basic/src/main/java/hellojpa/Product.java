@@ -12,7 +12,7 @@ public class Product {
     @Id @GeneratedValue
     private Long id;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Member> members = new ArrayList<>();
+    //@ManyToMany(mappedBy = "products")
+    //private List<Member> members = new ArrayList<>();
     private String name;
 }

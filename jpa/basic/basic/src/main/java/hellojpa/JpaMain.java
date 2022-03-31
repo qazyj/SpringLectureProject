@@ -13,16 +13,20 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Address address = new Address("city", "street", "zipcode");
 
-            Child child1 = new Child();
-            Child child2 = new Child();
+            Member member1 = new Member();
+            member1.setName("1");
+            member1.setAddress(address);
+            em.persist(member1);
 
+            Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
 
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
+            Member member2 = new Member();
+            member2.setName("1");
+            member2.setAddress(copyAddress);
+            em.persist(member2);
 
-            em.persist(parent);
 
             tx.commit();
             } catch(Exception e){
@@ -33,14 +37,4 @@ public class JpaMain {
                 emf.close();
             }
     }
-
-    public static void printMember(Member member){
-        String username = member.getName();
-        System.out.println(username);
-
-        Team team = member.getTeam();
-        System.out.println(team.getName());
-    }
-
-
 }

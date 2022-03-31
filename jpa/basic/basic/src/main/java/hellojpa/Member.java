@@ -3,12 +3,70 @@ package hellojpa;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Member extends BaseEntity{
+    @Id
+    @GeneratedValue
+    @Column(name = "member_id")
+    private Long id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Embedded
+    private Period period;
+
+    @Embedded
+    private Address address;
+
+    @ElementCollection
+    @CollectionTable(name = "FAVORITE_FOOD", joinColumns =
+        @JoinColumn(name = "MEMBER_ID")
+    )
+    @Column(name = "FOOD_NAME")
+    private Set<String> favoriteFoods = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "ADDRESS", joinColumns =
+        @JoinColumn(name = "MEMBER_ID")
+    )
+    private List<Address> addressHistory = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+/*
     @Id @GeneratedValue
     private Long id;
 
@@ -56,5 +114,5 @@ public class Member extends BaseEntity{
 
     public void setTeam(Team team) {
         this.team = team;
-    }
+    }*/
 }
