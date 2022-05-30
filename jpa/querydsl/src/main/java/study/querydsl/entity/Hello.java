@@ -1,4 +1,4 @@
-package jpabook.jpashop;
+package study.querydsl.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +10,8 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-public class Member {
+public class Hello {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     private Long id;
-    private String username;
 }

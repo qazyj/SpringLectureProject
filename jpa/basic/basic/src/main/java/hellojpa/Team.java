@@ -1,19 +1,22 @@
 package hellojpa;
 
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Team extends BaseEntity{
+public class Team {
     @Id
     @GeneratedValue
     @Column(name = "TEAM_ID")
     private Long id;
+
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "TEAM_ID")
+    @BatchSize(size=100)
+    @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
 
     public Team() {}
@@ -41,5 +44,4 @@ public class Team extends BaseEntity{
     public void setMembers(List<Member> members) {
         this.members = members;
     }
-
 }

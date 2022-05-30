@@ -1,6 +1,9 @@
 package hellojpa;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,20 +16,42 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Address address = new Address("city", "street", "zipcode");
+            Team team = new Team();
+            team.setName("팀A");
+            em.persist(team);
 
-            Member member1 = new Member();
-            member1.setName("1");
-            member1.setAddress(address);
-            em.persist(member1);
+            Team teamb = new Team();
+            teamb.setName("팀B");
+            em.persist(teamb);
 
-            Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
+            Member member = new Member();
+            member.setName("member1");
+            member.setAge(10);
+            member.changeTeam(team);
 
             Member member2 = new Member();
-            member2.setName("1");
-            member2.setAddress(copyAddress);
-            em.persist(member2);
+            member2.setName("member2");
+            member2.setAge(20);
+            member2.changeTeam(team);
 
+            Member member3 = new Member();
+            member3.setName("member3");
+            member3.setAge(30);
+            member3.changeTeam(teamb);
+
+            em.persist(member);
+            em.persist(member2);
+            em.persist(member3);
+
+
+            em.flush();
+            em.clear();
+
+            int resultCount = em.createQuery("update Member m set m.age = 20")
+                    .executeUpdate();
+            em.clear();
+            member3 = em.find(Member.class, member3.getId());
+            System.out.println(member3.getAge());
 
             tx.commit();
             } catch(Exception e){
