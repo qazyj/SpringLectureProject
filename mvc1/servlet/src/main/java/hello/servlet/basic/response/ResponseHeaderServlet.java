@@ -24,6 +24,7 @@ public class ResponseHeaderServlet extends HttpServlet {
         cookie(response);
         redirect(response);
 
+        //[messagebody]
         response.getWriter().write("안녕ㅋ");
     }
 
