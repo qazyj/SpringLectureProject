@@ -34,5 +34,8 @@ class MemberTest {
         em.persist(member3);
         em.persist(member4);
         em.flush();
+
+        Member member = em.find(Member.class, 1L);
+        System.out.println("Member.name = " + member.getUsername());
     }
 }

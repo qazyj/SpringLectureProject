@@ -17,7 +17,7 @@ public class DataJpaApplication {
 		SpringApplication.run(DataJpaApplication.class, args);
 	}
 
-	@Bean
+	//@Bean
 	public AuditorAware<String> auditorProvider() {
 		return () -> Optional.of(UUID.randomUUID().toString());
 	}
